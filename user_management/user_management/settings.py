@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,9 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Your custom apps
-    'users',  # Make sure this is added
+    'users',
     'rest_framework',
     'rest_framework.authtoken',
 ]
@@ -88,10 +88,39 @@ DATABASES = {
         'NAME': 'transcendence_db',
         'USER': 'transcendence_user',
         'PASSWORD': 'securepassword',
-        'HOST': 'localhost',  # Or the hostname of your DB server
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
+
+# JWT keys
+ACCESS_PRIVATE_KEY = open('/path/to/private_access_jwt_key.pem').read()
+ACCESS_PUBLIC_KEY = open('/path/to/public_access_jwt_key.pem').read()
+
+# 2FA
+TOTP_SECRET_MAX_LENGTH = 32
+
+# Password constraints
+PASSWORD_MIN_LENGTH = 8
+PASSWORD_MAX_LENGTH = 100
+
+# Email settings
+EMAIL_MAX_LENGTH = 60
+
+# Token expiration
+REFRESH_EXPIRATION_MINUTES = 60 * 24 * 30
+ACCESS_EXPIRATION_MINUTES = 15
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your-email@example.com'
+EMAIL_HOST_PASSWORD = 'your-email-password'
+
+MAX_USERNAME_SEARCH_RESULTS = 20
 
 
 
